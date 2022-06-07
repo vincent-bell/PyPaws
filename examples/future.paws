@@ -1,0 +1,22 @@
+using <pawsio>;
+
+func addTwoNumbersF = (a: int, b: int): int => {
+    return a + b;
+}
+
+; can also be written as...
+
+func addTwoNumbersF = (a: int, b: int): int => a + b;
+
+; procedures...
+
+proc addTwoNumbers = (a: int, b: int) => {
+    writefln("The result of %i + %i is... %i", a, b, addTwoNumbersF(a, b));
+}
+
+func main = (void): int => {
+    var num: int = 12;
+    var num2: int = 10;
+    addTwoNumbers(num, num2);
+    return 0;
+}
