@@ -130,3 +130,5 @@ dmypy.json
 
 # Temporary FSF
 shell.py
+pyshell/colour.py
+pyshell/reval.py
