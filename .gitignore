@@ -132,3 +132,6 @@ dmypy.json
 shell.py
 pyshell/colour.py
 pyshell/reval.py
+
+# License (for now...)
+LICENSE

@@ -6,6 +6,9 @@ class Position:
         self.src_name = src_name
         self.text = text
 
+    def __repr__(self):
+        return f'Position({self.idx}, {self.row}, {self.column}, {self.src_name}, \"{self.text}\")'
+
     def advance(self, current_char=None):
         self.idx += 1
         self.column += 1

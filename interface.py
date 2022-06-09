@@ -5,6 +5,7 @@ def run(src_name, text):
 
     lexer = Lexer(src_name, text)
     tokens, error = lexer.make_tokens()
+    print(tokens, error)
     if error: return None, error
 
     NotImplemented
