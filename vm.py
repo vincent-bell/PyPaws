@@ -4,13 +4,11 @@ from libvm import int_to_bytes, int_from_bytes
 
 # instructions -> bytecode
 instruction_as_bytes = {
-    'push': b'\x00', 'pop': b'\x01', 'mov': b'\x02',
-    'inc': b'\x03', 'dec': b'\x04', 'add': b'\x05',
-    'sub': b'\x06', 'mul': b'\x07', 'div': b'\x08',
-    'jmp': b'\x09', 'cmp': b'\x0a', 'jne': b'\x0b',
-    'jeq': b'\x0c', 'jge': b'\x0d', 'jgt': b'\x0e',
-    'jle': b'\x0f', 'jlt': b'\x10', 'call': b'\x11',
-    'ret': b'\x12', 'end': b'\x13'
+    'mov': b'\x00', 'inc': b'\x01', 'dec': b'\x02', 'add': b'\x03',
+    'sub': b'\x04', 'mul': b'\x05', 'div': b'\x06', 'jmp': b'\x07',
+    'cmp': b'\x08', 'jne': b'\x09', 'jeq': b'\x0a', 'jge': b'\x0b',
+    'jgt': b'\x0c', 'jle': b'\x0d', 'jlt': b'\x0e', 'call': b'\x0f',
+    'ret': b'\x10', 'syscall': b'\x11', 'end': b'\x12'
 }
 
 
@@ -31,6 +29,9 @@ class VirtualMachine:
         self.flags = { 'zf': False, 'sf': False }
         self.call_stack = []
 
+    def registers(self):
+        return self.__registers
+
     def run_program(self, bytecode):
         self.bytecode = bytecode
         current_instruction = self.bytecode.read(1)
@@ -41,17 +42,17 @@ class VirtualMachine:
 
     def advance_byte(self):
         self.increment_program_counter()
-        self.bytecode.seek(int_from_bytes(self.pc.read(2)))
+        self.bytecode.seek(int_from_bytes(self.registers['pc'].read(2)))
         return self.bytecode.read(1)
 
     def increment_program_counter(self):
         # TODO testing values > 255
         self.pc.seek(0)
-        x = int_from_bytes(self.pc.read(2))
+        x = int_from_bytes(self.registers['pc'].read(2))
         x += 1
-        self.pc.seek(0) if x > 255 else self.pc.seek(1)
-        self.pc.write(int_to_bytes(x))
-        self.pc.seek(0)
+        self.registers['pc'].seek(0) if x > 255 else self.registers['pc'].seek(1)
+        self.registers['pc'].write(int_to_bytes(x))
+        self.registers['pc'].seek(0)
 
     def exec(self, instruction):
         NotImplemented
