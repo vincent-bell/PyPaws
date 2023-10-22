@@ -2,22 +2,6 @@ from io import BytesIO
 from libvm import int_to_bytes, int_from_bytes
 
 
-# instructions -> bytecode
-instruction_as_bytes = {
-    'mov': b'\x00', 'inc': b'\x01', 'dec': b'\x02', 'add': b'\x03',
-    'sub': b'\x04', 'mul': b'\x05', 'div': b'\x06', 'jmp': b'\x07',
-    'cmp': b'\x08', 'jne': b'\x09', 'jeq': b'\x0a', 'jge': b'\x0b',
-    'jgt': b'\x0c', 'jle': b'\x0d', 'jlt': b'\x0e', 'call': b'\x0f',
-    'ret': b'\x10', 'syscall': b'\x11', 'end': b'\x12'
-}
-
-
-# syscalls -> bytecode
-syscalls = {
-    'PRINT': b'\x00', 'EXIT': b'\x01'
-}
-
-
 class VirtualMachine:
     def __init__(self):
         self.__registers = {
